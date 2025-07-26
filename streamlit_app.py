@@ -127,6 +127,10 @@ Renewable energy sources such as solar, wind, and hydroelectric power offer prom
 Individual actions also play a crucial role in addressing climate change. Simple lifestyle changes like using public transportation, reducing energy consumption, and supporting eco-friendly products can collectively make a substantial impact. Education and awareness campaigns help people understand their role in environmental protection.
 
 Furthermore, international cooperation is essential for tackling this global issue. Countries must work together to establish and enforce environmental regulations, share clean technologies, and support developing nations in their transition to sustainable practices. Only through coordinated global efforts can we hope to reverse the effects of climate change and preserve our planet for future generations."""
+    },
+    {
+        "title": "Short Essay Test",
+        "text": """This is a short essay. It has very few words. The vocabulary is simple. The sentences are short. This should get a low score."""
     }
 ]
 
@@ -184,7 +188,7 @@ def calculate_metrics(text):
         return {}
 
 def score_essay(text):
-    """Score essay using ML algorithms"""
+    """Score essay using realistic ML algorithms"""
     if len(text.strip()) < 10:
         return 1, "Essay too short", {}
     
@@ -192,48 +196,126 @@ def score_essay(text):
     if not metrics:
         return 1, "Error calculating metrics", {}
     
-    # Scoring algorithm
-    score = 5.0  # Base score
+    # More realistic scoring algorithm - starts from 0
+    score = 0.0
     
-    # Word count scoring (15-25% of total)
+    # Word count scoring (25% of total score)
     word_count = metrics['word_count']
-    if word_count >= 150:
-        score += 1.5
+    if word_count >= 250:
+        score += 2.5  # Excellent length
+    elif word_count >= 200:
+        score += 2.2  # Very good length
+    elif word_count >= 150:
+        score += 1.8  # Good length
     elif word_count >= 100:
-        score += 1.0
+        score += 1.3  # Adequate length
     elif word_count >= 50:
-        score += 0.5
+        score += 0.8  # Short but acceptable
     else:
-        score -= 1.0
+        score += 0.2  # Too short
     
-    # Vocabulary diversity (20-30% of total)
+    # Vocabulary diversity (25% of total score)
     vocab_div = metrics['vocab_diversity']
-    if vocab_div >= 0.7:
-        score += 2.0
+    if vocab_div >= 0.8:
+        score += 2.5  # Exceptional diversity
+    elif vocab_div >= 0.7:
+        score += 2.0  # Excellent diversity
     elif vocab_div >= 0.6:
-        score += 1.5
+        score += 1.5  # Good diversity
     elif vocab_div >= 0.5:
-        score += 1.0
+        score += 1.0  # Average diversity
+    elif vocab_div >= 0.4:
+        score += 0.6  # Below average
     else:
-        score -= 0.5
+        score += 0.2  # Poor diversity
     
-    # Sentence structure (15-20% of total)
+    # Sentence structure (25% of total score)
     avg_sentence = metrics['avg_sentence_length']
-    if 12 <= avg_sentence <= 20:
+    sentence_count = metrics['sentence_count']
+    
+    # Penalize very short essays heavily
+    if sentence_count < 3:
+        score += 0.2
+    elif sentence_count < 5:
+        score += 0.8
+    elif 5 <= sentence_count <= 8:
         score += 1.5
-    elif 8 <= avg_sentence <= 25:
-        score += 1.0
+    elif 9 <= sentence_count <= 15:
+        score += 2.0
+    elif 16 <= sentence_count <= 25:
+        score += 2.3
     else:
-        score -= 0.5
+        score += 1.8
     
-    # Readability (15-20% of total)
+    # Sentence length quality
+    if 15 <= avg_sentence <= 22:
+        score += 0.5  # Bonus for ideal sentence length
+    elif 10 <= avg_sentence <= 28:
+        score += 0.2  # Acceptable sentence length
+    elif avg_sentence < 8:
+        score -= 0.3  # Too short sentences
+    elif avg_sentence > 35:
+        score -= 0.3  # Too long sentences
+    
+    # Content quality indicators (25% of total score)
+    content_score = 0.0
+    
+    # Check for structure indicators
+    structure_words = ['firstly', 'secondly', 'thirdly', 'furthermore', 'moreover', 
+                      'however', 'therefore', 'in conclusion', 'finally', 'additionally']
+    structure_count = sum(1 for word in structure_words if word in text.lower())
+    
+    if structure_count >= 3:
+        content_score += 1.0
+    elif structure_count >= 2:
+        content_score += 0.7
+    elif structure_count >= 1:
+        content_score += 0.4
+    
+    # Check for examples and evidence
+    example_words = ['example', 'instance', 'such as', 'for example', 'demonstrate', 
+                    'illustrate', 'evidence', 'research', 'study', 'data']
+    example_count = sum(1 for word in example_words if word in text.lower())
+    
+    if example_count >= 3:
+        content_score += 0.8
+    elif example_count >= 2:
+        content_score += 0.5
+    elif example_count >= 1:
+        content_score += 0.3
+    
+    # Check for advanced vocabulary
+    advanced_words = ['significant', 'substantial', 'comprehensive', 'fundamental', 
+                     'essential', 'critical', 'substantial', 'demonstrate', 'establish',
+                     'consequently', 'nevertheless', 'furthermore', 'substantial']
+    advanced_count = sum(1 for word in advanced_words if word in text.lower())
+    
+    if advanced_count >= 4:
+        content_score += 0.7
+    elif advanced_count >= 2:
+        content_score += 0.4
+    elif advanced_count >= 1:
+        content_score += 0.2
+    
+    score += min(content_score, 2.5)  # Cap content score at 2.5
+    
+    # Apply penalties for common issues
+    if metrics['word_count'] < 100:
+        score *= 0.7  # Major penalty for very short essays
+    
+    if vocab_div < 0.3:
+        score *= 0.8  # Penalty for very repetitive writing
+    
+    # Readability bonus/penalty
     flesch = metrics['flesch_score']
-    if flesch >= 60:
-        score += 1.0
-    elif flesch >= 30:
-        score += 0.5
+    if 60 <= flesch <= 80:
+        score += 0.3  # Good readability
+    elif 40 <= flesch <= 90:
+        score += 0.1  # Acceptable readability
+    elif flesch < 20 or flesch > 95:
+        score -= 0.2  # Poor readability
     
-    # Final adjustments
+    # Final score adjustment and capping
     score = max(1, min(10, score))
     
     # Generate feedback
@@ -242,30 +324,59 @@ def score_essay(text):
     return round(score, 1), feedback, metrics
 
 def generate_feedback(score, metrics):
-    """Generate personalized feedback"""
+    """Generate realistic personalized feedback"""
     feedback = []
     
-    if metrics['word_count'] < 150:
-        feedback.append("📝 Consider expanding your essay with more details and examples.")
+    # Word count feedback
+    word_count = metrics['word_count']
+    if word_count < 100:
+        feedback.append("📝 Your essay is quite short. Aim for at least 150-200 words to fully develop your ideas.")
+    elif word_count < 150:
+        feedback.append("� Consider expanding your essay with more details, examples, and explanations.")
+    elif word_count >= 250:
+        feedback.append("📚 Excellent essay length! You have sufficient space to develop your arguments.")
     
-    if metrics['vocab_diversity'] >= 0.7:
-        feedback.append("🌟 Excellent vocabulary diversity!")
-    elif metrics['vocab_diversity'] < 0.5:
-        feedback.append("📚 Try using more varied vocabulary to enhance your writing.")
-    
-    if metrics['avg_sentence_length'] < 10:
-        feedback.append("🔗 Try combining some short sentences for better flow.")
-    elif metrics['avg_sentence_length'] > 25:
-        feedback.append("✂️ Consider breaking down long sentences for clarity.")
-    
-    if score >= 8:
-        feedback.append("🏆 Outstanding essay! Your writing demonstrates excellent skills.")
-    elif score >= 6:
-        feedback.append("👍 Good essay! A few improvements could make it even better.")
-    elif score >= 4:
-        feedback.append("📈 Decent essay with room for improvement.")
+    # Vocabulary diversity feedback
+    vocab_div = metrics['vocab_diversity']
+    if vocab_div >= 0.7:
+        feedback.append("🌟 Outstanding vocabulary diversity! Your word choice demonstrates strong writing skills.")
+    elif vocab_div >= 0.6:
+        feedback.append("📖 Good vocabulary diversity. Try incorporating more sophisticated words.")
+    elif vocab_div >= 0.5:
+        feedback.append("📚 Average vocabulary usage. Work on using more varied and precise word choices.")
     else:
-        feedback.append("💪 Keep practicing! Writing improves with regular practice.")
+        feedback.append("⚠️ Low vocabulary diversity detected. Avoid repeating the same words frequently.")
+    
+    # Sentence structure feedback
+    avg_sentence = metrics['avg_sentence_length']
+    sentence_count = metrics['sentence_count']
+    
+    if sentence_count < 5:
+        feedback.append("📊 Your essay needs more sentences to fully develop ideas. Aim for at least 8-12 sentences.")
+    elif avg_sentence < 10:
+        feedback.append("🔗 Try combining some short sentences using conjunctions for better flow.")
+    elif avg_sentence > 30:
+        feedback.append("✂️ Some sentences are quite long. Break them down for better clarity and readability.")
+    elif 15 <= avg_sentence <= 22:
+        feedback.append("✅ Excellent sentence structure! Your sentences are well-balanced.")
+    
+    # Overall score feedback
+    if score >= 9:
+        feedback.append("🏆 Exceptional essay! This demonstrates advanced writing skills and excellent content development.")
+    elif score >= 7.5:
+        feedback.append("🌟 Excellent work! Your essay shows strong writing abilities with room for minor improvements.")
+    elif score >= 6:
+        feedback.append("👍 Good essay! With some enhancements, this could be even more compelling.")
+    elif score >= 4.5:
+        feedback.append("📈 Decent foundation. Focus on expanding content and improving structure.")
+    elif score >= 3:
+        feedback.append("💪 Keep practicing! Work on essay length, vocabulary, and organization.")
+    else:
+        feedback.append("📝 This essay needs significant improvement. Focus on length, structure, and content development.")
+    
+    # Specific improvement suggestions based on score
+    if score < 6:
+        feedback.append("💡 Suggestions: Add more examples, use transition words, and expand your arguments with evidence.")
     
     return " ".join(feedback)
 
@@ -326,11 +437,21 @@ def main():
     with st.sidebar:
         st.markdown("### 🎯 Quick Actions")
         
-        if st.button("📄 Load Sample Essay"):
-            sample = SAMPLE_ESSAYS[0]  # Load first sample
-            st.session_state.essay_text = sample['text']
-            st.success("Sample essay loaded!")
-            st.rerun()
+        # Sample essay selector
+        sample_choice = st.selectbox(
+            "📄 Choose Sample Essay:",
+            options=["Select a sample..."] + [essay['title'] for essay in SAMPLE_ESSAYS],
+            index=0
+        )
+        
+        if sample_choice != "Select a sample...":
+            for essay in SAMPLE_ESSAYS:
+                if essay['title'] == sample_choice:
+                    if st.button(f"Load: {sample_choice}"):
+                        st.session_state.essay_text = essay['text']
+                        st.success(f"'{sample_choice}' loaded!")
+                        st.rerun()
+                    break
         
         if st.button("⭐ Show Best Essay"):
             best_essay = BEST_ESSAYS[0]
@@ -347,13 +468,26 @@ def main():
         if st.button("💡 Writing Tips"):
             st.markdown("""
             ### ✍️ Essay Writing Tips
-            - **Length:** Aim for 150+ words
+            - **Length:** Aim for 150+ words (200+ for high scores)
             - **Structure:** Introduction, body, conclusion
             - **Vocabulary:** Use varied and sophisticated words
             - **Transitions:** Connect ideas with linking words
             - **Examples:** Support arguments with specific examples
             - **Grammar:** Check for spelling and grammar errors
+            - **Sentences:** Mix short and long sentences (15-22 words avg)
             """)
+        
+        # Score explanation
+        st.markdown("### 📊 Scoring Guide")
+        st.markdown("""
+        **Score Ranges:**
+        - 9-10: Exceptional (A+)
+        - 7.5-8.9: Excellent (A)
+        - 6-7.4: Good (B)
+        - 4.5-5.9: Average (C)
+        - 3-4.4: Below Average (D)
+        - 1-2.9: Poor (F)
+        """)
     
     # Main content
     col1, col2 = st.columns([2, 1])
