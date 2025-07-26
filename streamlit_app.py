@@ -422,13 +422,11 @@ Tips for better scoring:
                 if essay_text.strip():
                     metrics = calculate_metrics(essay_text)
                     st.markdown("### 📈 Quick Statistics")
-                    col_stat1, col_stat2 = st.columns(2)
-                    with col_stat1:
-                        st.metric("Words", metrics['word_count'])
-                        st.metric("Sentences", metrics['sentence_count'])
-                    with col_stat2:
-                        st.metric("Unique Words", metrics['unique_words'])
-                        st.metric("Vocab Diversity", f"{metrics['vocab_diversity']:.2%}")
+                    # Use metrics in a single column to avoid nesting issues
+                    st.metric("Words", metrics['word_count'])
+                    st.metric("Sentences", metrics['sentence_count'])
+                    st.metric("Unique Words", metrics['unique_words'])
+                    st.metric("Vocab Diversity", f"{metrics['vocab_diversity']:.2%}")
     
     with col2:
         st.markdown("### 📋 Enhancement Tips")
