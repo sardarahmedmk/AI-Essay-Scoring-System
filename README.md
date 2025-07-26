@@ -30,18 +30,62 @@
 - Flesch readability score approximation
 - Detailed feedback with actionable suggestions
 
-## 🚀 Quick Start
+## 🚀 Streamlit Deployment
 
-### Online Deployment (Recommended)
+### **One-Click Deployment (Recommended)**
 
-1. **Deploy on Streamlit Community Cloud:**
-   - Visit [share.streamlit.io](https://share.streamlit.io/)
-   - Sign in with GitHub
-   - Create new app:
-     - Repository: `sardarahmedmk/AI-Essay-Scoring-System`
-     - Main file: `streamlit_app.py`
-     - Requirements: `requirements.txt`
-   - Click "Deploy!" - Your app will be live in 3-5 minutes!
+1. **Visit Streamlit Community Cloud:**
+   - Go to [share.streamlit.io](https://share.streamlit.io/)
+   - Sign in with your GitHub account
+
+2. **Create New App:**
+   - Click **"New app"**
+   - Select **"From existing repo"**
+   - Repository: `sardarahmedmk/AI-Essay-Scoring-System`
+   - Branch: `main`
+   - Main file path: `streamlit_app.py`
+   - Click **"Deploy!"**
+
+3. **Your App Goes Live:**
+   - Deployment takes 2-5 minutes
+   - URL: `https://ai-essay-scoring-system.streamlit.app/`
+   - Automatic updates when you push to GitHub
+
+### **Troubleshooting Deployment Issues**
+
+If you encounter "Error installing requirements":
+
+**Option 1: Use Simplified Requirements**
+The app uses minimal dependencies that should work on Streamlit Cloud.
+
+**Option 2: Local Testing First**
+```bash
+# Test locally before deploying
+git clone https://github.com/sardarahmedmk/AI-Essay-Scoring-System.git
+cd AI-Essay-Scoring-System
+pip install streamlit
+streamlit run streamlit_app.py
+```
+
+**Option 3: Check Streamlit Cloud Status**
+- Visit [status.streamlit.io](https://status.streamlit.io/) for service status
+- Try deploying again after a few minutes
+
+### **Alternative Deployment Options**
+
+**Heroku:**
+```bash
+# Create Procfile
+echo "web: streamlit run streamlit_app.py --server.port \$PORT" > Procfile
+
+# Deploy to Heroku
+heroku create your-app-name
+git push heroku main
+```
+
+**Railway:**
+- Connect your GitHub repo to [railway.app](https://railway.app/)
+- Auto-detects Streamlit and deploys
 
 ### Local Installation
 
@@ -98,16 +142,24 @@ The app will open in your browser at `http://localhost:8501`
 
 - **Frontend**: Streamlit with custom CSS
 - **Backend**: Python with advanced text analysis
-- **Deployment**: Streamlit Community Cloud
+- **Deployment**: Streamlit Community Cloud (primary), Heroku, Railway
 - **Version Control**: Git/GitHub
 - **Dependencies**: Minimal (streamlit, numpy, pandas)
 
-## 📊 Performance
+### **System Requirements**
+- **Python**: 3.8 or higher
+- **Memory**: ~50MB RAM usage
+- **Storage**: ~5MB total
+- **Internet**: Required for deployment and updates
+
+## 📊 Performance & Compatibility
 
 - **Response Time**: < 1 second for essay analysis
 - **Accuracy**: Comprehensive scoring based on multiple criteria
 - **Scalability**: Handles essays from 10 to 1000+ words
-- **Compatibility**: Works on all modern browsers and devices
+- **Browser Support**: Chrome, Firefox, Safari, Edge
+- **Mobile**: Fully responsive design
+- **Deployment**: ✅ Streamlit Cloud Ready
 
 ## 🤝 Contributing
 
