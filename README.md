@@ -1,11 +1,17 @@
 # 🚀 AI-Powered Essay Scoring System
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ai-essay-scoring-system-qyw3ngn3slkppcmscfmjz5.streamlit.app/)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/sardarahmedmk/AI-Essay-Scoring-System?style=social)](https://github.com/sardarahmedmk/AI-Essay-Scoring-System)
 
 > An intelligent essay scoring system built with Streamlit that provides instant feedback, comprehensive analysis, and personalized suggestions to improve writing skills.
+
+## 🌟 Live Demo
+
+**🚀 Try it now:** [AI Essay Scoring System](https://ai-essay-scoring-system-qyw3ngn3slkppcmscfmjz5.streamlit.app/)
+
+*The app is live and ready to score your essays instantly!*
 
 ## ✨ Features
 
@@ -48,7 +54,8 @@
 
 3. **Your App Goes Live:**
    - Deployment takes 2-5 minutes
-   - URL: `https://ai-essay-scoring-system.streamlit.app/`
+   - URL: `https://ai-essay-scoring-system-qyw3ngn3slkppcmscfmjz5.streamlit.app/`
+   - ✅ **Successfully Deployed!** - [Try it now](https://ai-essay-scoring-system-qyw3ngn3slkppcmscfmjz5.streamlit.app/)
    - Automatic updates when you push to GitHub
 
 ### **Troubleshooting Deployment Issues**
@@ -179,7 +186,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**[🚀 Deploy Now](https://share.streamlit.io/) | [⭐ Star this repo](https://github.com/sardarahmedmk/AI-Essay-Scoring-System) | [🐛 Report Issues](https://github.com/sardarahmedmk/AI-Essay-Scoring-System/issues)**
+**[🚀 Try Live Demo](https://ai-essay-scoring-system-qyw3ngn3slkppcmscfmjz5.streamlit.app/) | [⭐ Star this repo](https://github.com/sardarahmedmk/AI-Essay-Scoring-System) | [🐛 Report Issues](https://github.com/sardarahmedmk/AI-Essay-Scoring-System/issues)**
 
 *Made with ❤️ for better writing and education*
 
